@@ -41,6 +41,15 @@ def main():
         raise ValueError(
             f"written output is {len(written)} characters, must be 1-200"
         )
+    # The review is exactly 120 characters with no trailing newline;
+    # anything else on disk means the write was altered after the fact.
+    if len(written) != 120:
+        raise ValueError(
+            f"written output is {len(written)} characters, expected 120"
+        )
+    if written.endswith("\n"):
+        raise ValueError("written output must not end with a newline")
+    print(f"wrote {path} ({len(written)} chars)")
 
 
 if __name__ == "__main__":
